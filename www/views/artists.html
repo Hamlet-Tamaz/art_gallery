@@ -1,0 +1,47 @@
+<!-- @{title('Artists')} -->
+
+<div id="artists">
+	<div id="form">
+		<form action="/artists" method="post">
+			<h2>New Artist</h2>
+
+			<label for="fname">First Name: </label><input name='fname' type="text" placeholder="John">
+			<label for="lname">Last Name: </label><input name='lname' type="text" placeholder="Smith">
+			<br>
+			<label for="dob">Date of Birth: </label><input name='dob' type="date">
+			<label for="email">Email: </label><input name='email' type="text" placeholder="youremail@domain.com">
+			<br>
+			<input type="submit" class='btn'>
+		</form>
+	</div>
+
+
+<hr />
+<br />
+
+	<h2>Artists</h2>
+
+	<table>
+		<tr class='row'>
+			<th class='col-sm-1'>ID</th>
+			<th class='col-sm-2'>First Name</th>
+			<th class='col-sm-2'>Last Name</th>
+			<th class='col-sm-2'>Date of Birth</th>
+			<th class='col-sm-3'>Email</th>
+			<th class='col-sm-1'>Edit</th>
+			<th class='col-sm-1'>Delete</th>
+		</tr>
+		@{foreach i in model}
+			<tr class='row' onclick='window.location = "/artists/@{i.id}";'>
+				<td class='col-sm-1'>@{i.id}</td>
+				<td class='col-sm-2'>@{i.first_name}</td>
+				<td class='col-sm-2'>@{i.last_name}</td>
+				<td class='col-sm-2'>@{i.dob.format('dd MMMM yyyy')}</td>
+				<td class='col-sm-3'>@{i.email}</td>
+				<td class='col-sm-1'><a href="/artists/@{i.id}/edit"><span class='fa fa-edit fa-2x'></span></a></td>
+				<td class='col-sm-1'><span class='fa fa-remove fa-2x'></span></td>
+			</tr>
+		@{end}
+	</table>
+
+</div>
