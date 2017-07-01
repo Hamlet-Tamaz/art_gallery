@@ -9,7 +9,27 @@ $red : #F25F5C;
 $blue : #247BA0;
 $yellow : #FFE066;
 
-
+nav {
+	text-align: right;
+}
+nav ul {
+	list-style: none;
+	background-color: $grey;
+	padding: 10px 50px;
+}
+nav ul li {
+	display: inline;
+	margin-right: 10px;
+}
+nav ul li a{
+	color: white;
+}
+nav ul li h5{
+	display: inline;
+}
+nav ul li a:hover {
+	color: $yellow;
+}
 body { 
 	padding:0;
 	margin:0;
@@ -104,7 +124,7 @@ form .btn:hover  {
 #art .tile {
 	display: inline-block;
 	border: 2px solid black;
-	height: auto;
+	height: 314px;
 	width: auto;
 	max-width: 240px;
 	margin: 30px;
@@ -119,13 +139,13 @@ form .btn:hover  {
 	top: -8px;
 }
 #art .tile .desc {
-	
+	padding: 5px 10px;
 }
 #art .tile .price {
 	position: relative;
 	padding: 10px;
 	top: 8px;
-	background-color: $blue;
+	background-color: $green;
 	color: $yellow;
 	text-align: center;
 }
