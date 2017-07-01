@@ -2,13 +2,14 @@ exports.install = function() {
 	F.route('/', view_index);
 
 	F.route('/artists', view_artists, ['get']);
-	F.route('/artists', create_artist, ['post']);
 	F.route('/artists/{id}', view_artist, ['get']);
+	F.route('/artists', create_artist, ['post']);
+	F.route('/artists/{id}/edit', show_edit_artist, ['get']);
 	F.route('/artists/{id}', edit_artist, ['put']);
 	F.route('/artists/{id}', delete_artist, ['delete']);
 	
 
-	// F.route('/artists/{id}/art', view_all_art, ['get']);
+	F.route('/artists/{id}/art', view_all_art, ['get']);
 	// F.route('/artists/{id}/art/{id}', view_art, ['get']);
 	// F.route('/artists/{id}/art/{id}', create_art, ['post']);
 	// F.route('/artists/{id}/art/{id}', edit_art, ['get']);
@@ -28,7 +29,7 @@ function view_artists() {
 	var self = this;
 
 	F.database(function(err, client, done) {
-		client.query('SELECT id, first_name, last_name, dob, email FROM artists', function(err, result) {
+		client.query('SELECT id, first_name, last_name, dob, email FROM artists ORDER BY id', function(err, result) {
 			done();
 
 			if(err != null) {
@@ -77,23 +78,41 @@ function view_artist() {
 			}
 		})
 	})
-
-	self.view('index');
 }
+
+function show_edit_artist() {
+	var self = this;
+
+	DB(function(err, client, done){
+		client.query('SELECT id, first_name, last_name, dob, email FROM artists WHERE id='+self.req.path[1],
+		function(err, result) {
+			if(err != null) {
+				self.throw500(err);
+				return;
+			}
+			else {
+				console.log('artist edit info:', result)
+				self.json(result.rows[0]);
+			}
+		})
+	})
+}
+
 
 
 function edit_artist() {
 	var self = this;
+	console.log('body: ', self.body)
 	
 	DB(function(err, client, done) {
-		client.query('UPDATE TABLE artists SET first_name=$1, last_name=$2, dob=$3, email=$4 WHERE id=$5', [self.body.fname, self.body.lname, self.body.dob, self.body.email, self.body.id], 
+		client.query('UPDATE artists SET first_name=$1, last_name=$2, dob=$3, email=$4 WHERE id=$5', [self.body.fname, self.body.lname, self.body.dob, self.body.email, self.body.id], 
 			function(err, result) {
 				if(err != null) {
 					self.throw500(err);
 					return;
 				}
 				else {
-					self.plain('successfully updated artist');
+					self.json({'updated':self.body.id});
 				}
 		})
 	})
@@ -103,16 +122,38 @@ function edit_artist() {
 function delete_artist() {
 	var self = this;
 
+console.log('id: ', self.req.path[1])
+
 	DB(function(err, client, done) {
-		client.query('DELETE from artists WHERE id=$1', [self.body.id], 
+		client.query('DELETE from artists WHERE id=$1', [self.req.path[1]], 
 			function(err, result) {
 				if(err != null) {
 					self.throw500(err);
 					return;
 				}
 				else {
-					self.plain('successfully deleted artist');
+					self.json({'deleted':self.req.path[1]});
 				}
 		})
 	})
 }
+
+function view_all_art() {
+	var self = this;
+
+	F.database(function(err, client, done) {
+		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id', function(err, result) {
+			done();
+
+			if(err != null) {
+				self.throw500(err);
+				return;
+			}
+			else {
+				console.log('res: ', result.rows);
+				self.view('art', result.rows);
+			}
+		});
+	});
+}
+	

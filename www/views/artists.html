@@ -1,18 +1,43 @@
-<!-- @{title('Artists')} -->
+@{title('Artists')}
 
 <div id="artists">
 	<div id="form">
-		<form action="/artists" method="post">
-			<h2>New Artist</h2>
+		<form id='newArtist' action="/artists" method="post">
+			<h2 class='center'>Add New Artist</h2>
 
+			<div class='row'>
+				<label class='col col-2' for="fname">First Name: </label><input class='col col-3' name='fname' type="text" placeholder="John">
+				<label class='col col-2' for="lname">Last Name: </label><input class='col col-3' name='lname' type="text" placeholder="Smith">
+			</div>
+			
+			<br>
+			
+			<div class='row'>
+				<label class='col col-2' for="dob">Date of Birth: </label><input class='col col-3' name='dob' type="date">
+				<label class='col col-2' for="email">Email: </label><input class='col col-3' name='email' type="text" placeholder="youremail@domain.com">
+			</div>
+
+			<br>
+			<input type="submit" class='btn'>
+		</form>
+
+		<form id='editArtist' action="" method="put">
+			<h2 class='center'>Edit Artist</h2>
+			<input type="hidden" name='id'>
 			<label for="fname">First Name: </label><input name='fname' type="text" placeholder="John">
 			<label for="lname">Last Name: </label><input name='lname' type="text" placeholder="Smith">
 			<br>
 			<label for="dob">Date of Birth: </label><input name='dob' type="date">
 			<label for="email">Email: </label><input name='email' type="text" placeholder="youremail@domain.com">
 			<br>
+			<br>
 			<input type="submit" class='btn'>
+			<button class='btn'>Add NEW Artist</button>
+
+			<br>
+			<br>
 		</form>
+		
 	</div>
 
 
@@ -23,23 +48,23 @@
 
 	<table>
 		<tr class='row'>
-			<th class='col-sm-1'>ID</th>
-			<th class='col-sm-2'>First Name</th>
-			<th class='col-sm-2'>Last Name</th>
-			<th class='col-sm-2'>Date of Birth</th>
-			<th class='col-sm-3'>Email</th>
-			<th class='col-sm-1'>Edit</th>
-			<th class='col-sm-1'>Delete</th>
+			<th class='col-1'>ID</th>
+			<th class='col-2'>First Name</th>
+			<th class='col-2'>Last Name</th>
+			<th class='col-2'>Date of Birth</th>
+			<th class='col-3'>Email</th>
+			<th class='col-1'>Edit</th>
+			<th class='col-1'>Delete</th>
 		</tr>
 		@{foreach i in model}
-			<tr class='row' onclick='window.location = "/artists/@{i.id}";'>
-				<td class='col-sm-1'>@{i.id}</td>
-				<td class='col-sm-2'>@{i.first_name}</td>
-				<td class='col-sm-2'>@{i.last_name}</td>
-				<td class='col-sm-2'>@{i.dob.format('dd MMMM yyyy')}</td>
-				<td class='col-sm-3'>@{i.email}</td>
-				<td class='col-sm-1'><a href="/artists/@{i.id}/edit"><span class='fa fa-edit fa-2x'></span></a></td>
-				<td class='col-sm-1'><span class='fa fa-remove fa-2x'></span></td>
+			<tr class='item row'>
+				<td class='cl col-1'>@{i.id}</td>
+				<td class='cl col-2'>@{i.first_name}</td>
+				<td class='cl col-2'>@{i.last_name}</td>
+				<td class='cl col-2'>@{i.dob.format('dd MMMM yyyy')}</td>
+				<td class='cl col-3'>@{i.email}</td>
+				<td class='col-1'><a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.id}/edit' data-make-edit-url='/artists/@{i.id}'><span class='fa fa-edit fa-2x'></span></a></td>
+				<td class='col-1'><a class='glyphD' data-url='/artists/@{i.id}'><span class='fa fa-remove fa-2x'></span></a></td>
 			</tr>
 		@{end}
 	</table>

@@ -1,0 +1,64 @@
+@{title('Art')}
+
+<div id="art">
+	<div id="form">
+		<form id='newArt' action="/artists" method="post">
+			<h2 class='center'>Add New Art</h2>
+
+			<div class='row'>
+				<label class='col col-2' for="name">Name: </label><input class='col col-3' name='name' type="text" placeholder="art name">
+				<label class='col col-2' for="price">Price: $</label><input class='col col-3' name='price' type="number" placeholder="">
+			</div>
+			
+			<br>
+			
+
+		 	<legend for='desc'>Description:</legend>
+		  <textarea name="desc" id="" cols="70" rows="5"></textarea>
+
+
+			<br>
+			<input type="submit" class='btn'>
+		</form>
+
+		<form id='editArt' action="" method="put">
+			<h2 class='center'>Edit Art</h2>
+			<input type="hidden" name='id'}'>
+			<label for="fname">First Name: </label><input name='fname' type="text" placeholder="John">
+			<label for="lname">Last Name: </label><input name='lname' type="text" placeholder="Smith">
+			<br>
+			<label for="dob">Date of Birth: </label><input name='dob' type="date">
+			<label for="email">Email: </label><input name='email' type="text" placeholder="youremail@domain.com">
+			<br>
+			<br>
+			<input type="submit" class='btn'>
+			<button class='btn'>Add NEW Art</button>
+
+			<br>
+			<br>
+		</form>
+		
+	</div>
+
+
+<hr />
+<br />
+
+	<h2>Art</h2>
+	
+	<div id='artDisplay'>
+		@{foreach i in model}
+			<div class="tile">
+				<input type="hidden" value=@{i.art_id}>
+				<h4 class='name'>@{i.name}</h4>
+				<img src="/i/iris_garden.jpg" alt="">
+				<p class='desc'>@{i.description}</p>
+				<h3 class='price'>@{i.price}</h3>
+				<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.id}/edit' data-make-edit-url='/artists/@{i.id}'><span class='fa fa-edit fa-2x'></span></a>
+				<a class='glyphD' data-url='/artists/@{i.id}'><span class='fa fa-remove fa-2x'></span></a>
+
+			</div>
+		@{end}
+	</div>
+
+</div>
