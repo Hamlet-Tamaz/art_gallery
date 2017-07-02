@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	//			ARTIST
 
 	// select artist
 	$('.item').on('click', '.cl', function(e) {
@@ -6,51 +7,47 @@ $(document).ready(function() {
 	});
 
 	// edit artist
-	$('.glyphE').on('click', function(e) {
-		console.log('e: ', e);
+	$('#artists .glyphE').on('click', function(e) {
 		
 		var getEditUrl = e.currentTarget.dataset.getEditUrl;
 		var makeEditUrl = e.currentTarget.dataset.makeEditUrl;
-
-		$.get(getEditUrl).then(function(raw) {
-			console.log('raw: ', raw);
 			
-			$('div#form form#newArtist').css('display', 'none');
-			$('div#form form#editArtist').css('display', 'block');
+		$('div#form form#newArtist').css('display', 'none');
+		$('div#form form#editArtist').css('display', 'block');
 
-			$('div#form form#editArtist')[0].children.id.value = raw.id;
-			$('div#form form#editArtist')[0].children.fname.value = raw.first_name;
-			$('div#form form#editArtist')[0].children.lname.value = raw.last_name;
-			$('div#form form#editArtist')[0].children.dob.value = raw.dob.substring(0,10);
-			$('div#form form#editArtist')[0].children.email.value = raw.email;
+		var artist = e.currentTarget.parentElement.parentElement.children,
+				form = $('div#form form#editArtist')[0].children;
+	debugger;
 
-			// $('div#form form#editArtist')[0].attributes.action.value = makeEditUrl;
+		form.id.value = artist[0].innerHTML;
+		form.fname.value = artist[1].innerHTML;
+		form.lname.value = artist[2].innerHTML;
+		form.dob.value = artist[3].attributes.rel.value;
+		form.email.value = artist[4].innerHTML;
 
-			$('div#form form#editArtist input[type="submit"]').on('click', function(e) {
-				e.preventDefault();
 
-				$.ajax({
-					method: 'PUT',
-					url: makeEditUrl,
-					data: {
-						id: $('div#form form#editArtist')[0].children.id.value,
-						fname: $('div#form form#editArtist')[0].children.fname.value,
-						lname: $('div#form form#editArtist')[0].children.lname.value,
-						dob: $('div#form form#editArtist')[0].children.dob.value,
-						email: $('div#form form#editArtist')[0].children.email.value
-					}
-				}).then(function(res) {
-					console.log('edits saved');
-					window.location = '/artists';
-				})
-			});
+		$('div#form form#editArtist input[type="submit"]').on('click', function(e) {
+			e.preventDefault();
 
-			console.log('form: ', $('div#form form#editArtist') );
+			$.ajax({
+				method: 'PUT',
+				url: makeEditUrl,
+				data: {
+					id: $('div#form form#editArtist')[0].children.id.value,
+					fname: $('div#form form#editArtist')[0].children.fname.value,
+					lname: $('div#form form#editArtist')[0].children.lname.value,
+					dob: $('div#form form#editArtist')[0].children.dob.value,
+					email: $('div#form form#editArtist')[0].children.email.value
+				}
+			}).then(function(res) {
+				console.log('edits saved');
+				window.location = '/artists';
+			})
 		});
 	});
 
 	//delete artist
-	$('.glyphD').on('click', function(e) {
+	$('#artists .glyphD').on('click', function(e) {
 		
 		var deleteUrl = e.currentTarget.dataset.url;
 
@@ -68,4 +65,89 @@ $(document).ready(function() {
 
 		});
 	});
+
+	//	toggle Artist form
+
+	$('form#editArtist button').on('click', function(e) {
+		$('div#form form#newArtist').css('display', 'block');
+		$('div#form form#editArtist').css('display', 'none');
+	});
+
+	
+	//  	 ART
+
+
+	// edit art
+	$('#art .glyphE').on('click', function(e) {
+		console.log('e: ', e);
+
+		var getEditUrl = e.currentTarget.dataset.getEditUrl;
+		var makeEditUrl = e.currentTarget.dataset.makeEditUrl;
+
+
+		var tile = e.currentTarget.parentElement.children,
+				form = $('div#form form#editArt')[0].children;
+		
+		console.log('tile: ', +tile[5].innerHTML.substring(1, tile[5].innerHTML.length));
+		console.log('form: ', form);
+
+		$('div#form form#newArt').css('display', 'none');
+		$('div#form form#editArt').css('display', 'block');
+		
+		form.id.value = tile[0].value;
+		form.artist_id.value = tile[1].value;
+		form[3].children.name.value = tile[2].innerHTML;
+		form[3].children.price.value = +tile[5].innerHTML.substring(1, tile[5].innerHTML.length);
+		form[3].children.desc.innerHTML = tile[4].innerHTML;
+
+
+		$('div#form form#editArt input[type="submit"]').on('click', function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				method: 'PUT',
+				url: makeEditUrl,
+				data: {
+					id: form.id.value,
+					artist_id: form.artist_id.value,
+					name: form[3].children.name.value,
+					price: form[3].children.price.value,
+					desc: form.desc.value
+				}
+			}).then(function(res) {
+				console.log('edits saved');
+				window.location = '/artists/'+form.artist_id.value+'/art';
+			})
+		});
+	});
+
+	//delete art
+	$('#art .glyphD').on('click', function(e) {
+		
+		var deleteUrl = e.currentTarget.dataset.url;
+		$.ajax({
+			method: "DELETE",
+			url: deleteUrl
+		}).then(function(raw) {
+
+			var item = e.currentTarget.parentElement;
+
+			item.innerHTML = 'Successfully deleted art';
+			item.style.color = '#F25F5C';
+			item.style.border = 'none';
+			item.style.height = 'auto';
+
+		});
+	});	
 });
+
+//	toggle Art form
+
+	$('form#editArt button').on('click', function(e) {
+		alert('here');
+		$('div#form form#newArt').css('display', 'none');
+		$('div#form form#editArt').css('display', 'block');
+	});
+
+
+

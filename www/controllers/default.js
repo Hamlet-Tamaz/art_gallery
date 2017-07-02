@@ -10,10 +10,11 @@ exports.install = function() {
 	
 
 	F.route('/artists/{id}/art', view_all_art, ['get']);
-	// F.route('/artists/{id}/art/{id}', view_art, ['get']);
-	// F.route('/artists/{id}/art/{id}', create_art, ['post']);
-	// F.route('/artists/{id}/art/{id}', edit_art, ['get']);
-	// F.route('/artists/{id}/art/{id}', delete_art, ['get']);
+	F.route('/artists/{id}/art/{art_id}', view_art, ['get']);
+	F.route('/artists/{id}/art', create_art, ['post']);
+	F.route('/artists/{id}/art/{art_id}/edit', show_edit_art, ['get']);
+	F.route('/artists/{id}/art/{art_id}', edit_art, ['put']);
+	F.route('/artists/{id}/art/{art_id}', delete_art, ['delete']);
 
 
 };
@@ -157,3 +158,99 @@ function view_all_art() {
 	});
 }
 	
+function create_art() {
+	var self = this;
+	
+	console.log('body: ', self.body)
+
+
+	DB(function(err, client, done) {
+		client.query('INSERT INTO art (artist_id, name, description, price) VALUES ($1, $2, $3, $4)', [+self.body.artist_id, self.body.name, self.body.desc, +self.body.price], 
+			function(err, result) {
+				if(err != null) {
+					self.throw500(err);
+					return;
+				}
+				else {
+					self.redirect('/artists/'+self.body.artist_id+'/art');
+				}
+		})
+	})
+}
+
+
+function view_art() {
+	var self = this;
+
+	DB(function(err, client, done){
+		client.query('SELECT id, first_name, last_name, dob, email FROM artists',
+		function(err, result) {
+			if(err != null) {
+				self.throw500(err);
+				return;
+			}
+			else {
+				console.log('res: ', result)
+				self.view('artist', result);
+			}
+		})
+	})
+}
+
+function show_edit_art() {
+	var self = this;
+
+	DB(function(err, client, done){
+		client.query('SELECT id, first_name, last_name, dob, email FROM artists WHERE id='+self.req.path[1],
+		function(err, result) {
+			if(err != null) {
+				self.throw500(err);
+				return;
+			}
+			else {
+				console.log('artist edit info:', result)
+				self.json(result.rows[0]);
+			}
+		})
+	})
+}
+
+
+
+function edit_art() {
+	var self = this;
+	console.log('body: ', self.body)
+	
+	DB(function(err, client, done) {
+		client.query('UPDATE art SET artist_id=$1, name=$2, price=$3, description=$4 WHERE id=$5', [self.body.artist_id, self.body.name, self.body.price, self.body.desc, self.body.id], 
+			function(err, result) {
+				if(err != null) {
+					self.throw500(err);
+					return;
+				}
+				else {
+					self.json({'updated':self.body.id});
+				}
+		})
+	})
+}
+
+
+function delete_art() {
+	var self = this;
+
+console.log('id: ', self.req.path[1])
+
+	DB(function(err, client, done) {
+		client.query('DELETE from art WHERE id=$1', [self.req.path[3]], 
+			function(err, result) {
+				if(err != null) {
+					self.throw500(err);
+					return;
+				}
+				else {
+					self.json({'deleted':self.req.path[3]});
+				}
+		})
+	})
+}

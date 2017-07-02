@@ -2,33 +2,47 @@
 
 <div id="art">
 	<div id="form">
-		<form id='newArt' action="/artists" method="post">
+		<form id='newArt' action="/artists/@{model[0].artist_id}/art" method="post">
 			<h2 class='center'>Add New Art</h2>
+				
+				<input type="hidden" name='artist_id' value='@{model[0].artist_id}'>
+			<div class='ro'>
+				<label class='col col-2' for="name">Name: </label><input form='newArt' class='col col-3' name='name' type="text" placeholder="art name" autofocus required>
+				<br>
+				<label class='col col-2' for="price">Price: $</label><input form='newArt' class='col col-3' name='price' type="number" placeholder="">
+			
+				<br>
+				<br>
+				
 
-			<div class='row'>
-				<label class='col col-2' for="name">Name: </label><input class='col col-3' name='name' type="text" placeholder="art name">
-				<label class='col col-2' for="price">Price: $</label><input class='col col-3' name='price' type="number" placeholder="">
+			 	<legend for='desc'>Description:</legend>
+			  <textarea name="desc" id="" cols="70" rows="5"></textarea>
+
 			</div>
-			
-			<br>
-			
-
-		 	<legend for='desc'>Description:</legend>
-		  <textarea name="desc" id="" cols="70" rows="5"></textarea>
-
 
 			<br>
 			<input type="submit" class='btn'>
 		</form>
 
+
 		<form id='editArt' action="" method="put">
 			<h2 class='center'>Edit Art</h2>
+
 			<input type="hidden" name='id'}'>
-			<label for="fname">First Name: </label><input name='fname' type="text" placeholder="John">
-			<label for="lname">Last Name: </label><input name='lname' type="text" placeholder="Smith">
-			<br>
-			<label for="dob">Date of Birth: </label><input name='dob' type="date">
-			<label for="email">Email: </label><input name='email' type="text" placeholder="youremail@domain.com">
+			<input type="hidden" name='artist_id'}'>
+			
+			<div class="ro">
+				<label class='col col-2' for="name">Name: </label><input form='editArt' class='col col-3' name='name' type="text" placeholder="art name" required>
+				<br>
+				<label class='col col-2' for="price">Price: $</label><input form='editArt' class='col col-3' name='price' type="number">
+			
+				<br>
+				<br>
+			
+		 		<legend for='desc'>Description:</legend>
+		  	<textarea name="desc" id="" cols="70" rows="5"></textarea>
+			</div>
+
 			<br>
 			<br>
 			<input type="submit" class='btn'>
@@ -50,12 +64,13 @@
 		@{foreach i in model}
 			<div class="tile">
 				<input type="hidden" value=@{i.art_id}>
+				<input type="hidden" value=@{i.artist_id}>
 				<h4 class='name'>@{i.name}</h4>
 				<img src="/i/iris_garden.jpg" alt="">
 				<p class='desc'>@{i.description}</p>
 				<h3 class='price'>@{i.price}</h3>
-				<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.id}/edit' data-make-edit-url='/artists/@{i.id}'><span class='fa fa-edit fa-2x'></span></a>
-				<a class='glyphD' data-url='/artists/@{i.id}'><span class='fa fa-remove fa-2x'></span></a>
+				<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.artist_id}/art/#{i.id}/edit' data-make-edit-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-edit fa-2x'></span></a>
+				<a class='glyphD' data-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-remove fa-2x'></span></a>
 
 			</div>
 		@{end}

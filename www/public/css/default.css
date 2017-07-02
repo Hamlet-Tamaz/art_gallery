@@ -44,8 +44,8 @@ body {
 }
 .container { 
 	margin:0 auto;
-	width: 960px;
-	padding: 50px 0;
+	max-width: 960px;
+	padding: 50px 0 50px 5px;
 }
 
 .center { 
@@ -73,7 +73,7 @@ hr {
 }
 
 #artists, #art{
-	margin: 0 30px;
+	margin: 0 15px;
 	text-align: center;
 }
 #artists form, #art form {
@@ -93,12 +93,18 @@ form .btn:hover  {
 	cursor: pointer;
 	background-color: $blue;
 }
+/*div#form form div.row > div {
+	display: inline;
+}*/
+#artists form .ro br, #art form .ro br {
+	display: none;
+}
 #artists form input {
-	margin-right: 20px;
+	margin-right: 10px;
 }
 #artists table {
 	text-align: left;
-	width: 100%;
+	width: 93%;
 }
 #artists table tr:hover{
 	cursor: pointer;
@@ -109,14 +115,25 @@ form .btn:hover  {
 	background-color: white;
 }
 #artists table td {
-	padding: 5px 20px;
+	padding: 5px 10px;
 }
 #artists table th {
-	text-align: center;
 	text-decoration: underline;
+	padding: 5px 10px;
 }
 #artists table td.col-3 {
 	word-wrap: break-word;
+}
+#artists a.glyphD {
+	position: relative;
+	top: -3px;
+}
+#art label, #artists label {
+	max-width: 105px;
+}
+#art textarea {
+	max-width: 90%;
+	padding: 10px
 }
 #artDisplay {
 	text-align: left;
@@ -166,6 +183,9 @@ form .btn:hover  {
 .glyphE, .glyphD {
 	z-index: 10;
 }
+.glyphE:hover, .glyphD:hover {
+	cursor: pointer;
+}
 
 
 
@@ -178,3 +198,18 @@ footer {
 	text-align: center;
 	margin-top: 20px;
 }
+
+
+@media all and (max-width: 550px) {
+	#artists form .ro, #art form .ro {
+		text-align: center;
+	}
+	#artists form .ro br, #art form .ro br {
+		display: block;
+	}
+	#artists table td:nth-child(3) {
+		word-break: break-all;
+	}
+}
+
+
