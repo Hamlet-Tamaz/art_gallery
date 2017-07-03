@@ -50,7 +50,7 @@ body {
 .container { 
 	margin:0 auto;
 	max-width: 960px;
-	padding: 50px 0 50px 5px;
+	padding: 40px 0 40px 5px;
 }
 
 .center { 
@@ -86,7 +86,10 @@ div#welcome {
 	text-align: center;
 }
 #artists form, #art form {
-	text-align: left
+	display: inline-block;
+	width: 85vw;
+	position: relative;
+	left: -9vw;
 }
 form#editArtist, form#editArt {
 	display: none;
@@ -108,7 +111,7 @@ form .btn:hover  {
 #artists form .ro br, #art form .ro br {
 	display: none;
 }
-#artists form input, #art form input, #art form button {
+#artists form input, #art form input, #art form button, #artists form button {
 	margin-right: 10px;
 	margin-bottom: 5px;
 }
@@ -151,10 +154,15 @@ form .btn:hover  {
 }
 #art textarea {
 	max-width: 90%;
-	padding: 10px
+	padding: 10px;
+	position: relative;
+	left: 15px;
 }
 #artDisplay {
 	text-align: left;
+}
+#artDisplay h5 {
+	color: $red;
 }
 #art .tile, #arts .tile {
 	display: inline-block;
@@ -188,6 +196,7 @@ form .btn:hover  {
 	background-color: $green;
 	color: $yellow;
 	text-align: center;
+	height: 45px;
 }
 #art .tile .price:hover, #arts .tile .price:hover {
 	cursor: pointer;

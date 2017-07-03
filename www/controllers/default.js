@@ -158,7 +158,7 @@ function view_all_art() {
 				
 				var ids = [];
 
-				var artists = [{id: '*', name: 'All Artists'}]
+				var artists = [{id: '0', name: 'All Artists'}]
 				
 
 				result.rows.forEach(function(el) {		
@@ -186,7 +186,7 @@ function view_artist_art() {
 
 
 	F.database(function(err, client, done) {
-		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id', function(err, result) {
+		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists LEFT JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id', function(err, result) {
 			done();
 
 			if(err != null) {
@@ -202,7 +202,12 @@ function view_artist_art() {
 				if (self.req.query.price) self.req.query.price = +self.req.query.price.substring(1, self.req.query.price.length);
 	
 	console.log('query: ', self.req.query)
+	console.log('res: ', result)
 				
+				// if(!result.rows[0].artist_id) {
+				// 	result = [{artist_id: '', }]
+				// }
+				console.log('res2: ', result)
 
 				self.repository.art = self.req.query;
 				self.view('art', result.rows);
@@ -230,11 +235,18 @@ function create_art() {
 
 
 function get_artist_art() {
-	var self = this;
+	var self = this,
+	query;
+
+	if (self.req.path[1] == '0') {
+		query = 'SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id ORDER BY art.id';
+	}
+	else {
+		query = 'SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id';
+	}
 
 	DB(function(err, client, done){
-		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id',
-		function(err, result) {
+		client.query(query, function(err, result) {
 			if(err != null) {
 				self.throw500(err);
 				return;

@@ -8,21 +8,21 @@
 			<br>
 			
 			<div class='ro'>
-				<label class='col col-3' for="fname">First Name: </label><input class='col col-3' name='fname' type="text" placeholder="John" autofocus required>
+				<label class='col col-2' for="fname">First Name: </label><input class='col col-3' name='fname' type="text" placeholder="John" autofocus required>
 			
 				<br>
 			
-				<label class='col col-3' for="lname">Last Name: </label><input class='col col-3' name='lname' type="text" placeholder="Smith" required>
+				<label class='col col-2' for="lname">Last Name: </label><input class='col col-3' name='lname' type="text" placeholder="Smith" required>
 			</div>
 			
 			<br>
 			
 			<div class='ro'>
-				<label class='col col-3' for="dob">Date of Birth: </label><input class='col col-3' name='dob' type="date">
+				<label class='col col-2' for="dob">Date of Birth: </label><input class='col col-3' name='dob' type="date">
 			
 				<br>
 
-				<label class='col col-3' for="email">Email: </label><input class='col col-3' name='email' type="text" placeholder="youremail@domain.com" required>
+				<label class='col col-2' for="email">Email: </label><input class='col col-3' name='email' type="text" placeholder="youremail@domain.com" required>
 			</div>
 
 			<br>
@@ -34,19 +34,25 @@
 
 			<br>
 				
-			<input type="hidden" name='id'>
-			<label for="fname">First Name: </label><input name='fname' type="text" placeholder="John" required>
-			<label for="lname">Last Name: </label><input name='lname' type="text" placeholder="Smith" required>
+			<div class="ro">
+				<input type="hidden" name='id'>
+				<label class='col col-2' for="fname">First Name: </label><input class='col col-3' name='fname' type="text" placeholder="John" required>
+				<br>
+				<label class='col col-2' for="lname">Last Name: </label><input class='col col-3' name='lname' type="text" placeholder="Smith" required>
+			</div>
+
 			<br>
-			<label for="dob">Date of Birth: </label><input name='dob' type="date">
-			<label for="email">Email: </label><input name='email' type="text" placeholder="youremail@domain.com" required>
+			<div class="ro">
+				
+				<label class='col col-2' for="dob">Date of Birth: </label><input class='col col-3' name='dob' type="date">
+				<br>
+				<label class='col col-2' for="email">Email: </label><input class='col col-3' name='email' type="text" placeholder="youremail@domain.com" required>
+			</div>
 			<br>
 			<br>
 			<input type="submit" class='btn'>
 			<button class='btn'>Add NEW Artist</button>
 
-			<br>
-			<br>
 		</form>
 		
 		@{if repository.flash == 'edits_saved'}

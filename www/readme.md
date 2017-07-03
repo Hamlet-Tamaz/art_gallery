@@ -1,10 +1,13 @@
-[![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/)
+Installation guide.
 
-- [__Live chat with professional support__](https://messenger.totaljs.com)
-- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
+In order to run this wepsite, please install the packages by running the command 'npm install' from the root folder of this project.
+To start the server, run 'node debug.js'.
 
-# Total.js: Empty Project
+Hi! Welcome to my gallery of Artists and Art where you can:
 
-- Install Total.js via NPM `$ npm install total.js`
-- Download example
-- Run it `$ node debug.js`
+View, create, update and delete Artists and their Art. 
+It is recommended to start by visiting the Artists' page and picking an artist who's work to view.
+You can also view the Art alone by visiting the Art page.
+This library was built using Total.js, Bootstrap, jQuery, Font Awesome, PostreSQL.
+Please, note the responsive design as well as features such as flash messages, autofocusing, dynamic page updates, etc.
+To go to the Artists page, click on the link below.

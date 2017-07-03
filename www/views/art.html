@@ -14,10 +14,9 @@
 				<br>
 				<label class='col col-2' for="price">Price: $</label><input form='newArt' class='col col-3' name='price' type="number" placeholder="art price" min='0' step="any">
 			
-				<br>
-				<br>
+				<br style="display:block">
+				<br style="display:block">
 				
-
 			 	<legend for='desc'>Description:</legend>
 			  <textarea name="desc" id="" cols="70" rows="5"></textarea>
 
@@ -41,9 +40,8 @@
 				<br>
 				<label class='col col-2' for="price">Price: $</label><input form='editArt' class='col col-3' name='price' type="number" step="any" value="@{repository.art.price}">
 			
-
-				<br>
-				<br>
+				<br style="display:block">
+				<br style="display:block">
 			
 		 		<legend for='desc'>Description:</legend>
 		  	<textarea name="desc" id="" cols="70" rows="5">@{repository.art.desc}</textarea>
@@ -72,24 +70,30 @@
 
 	<h2>@{model[0].first_name} @{model[0].last_name}'s Art</h2>
 	
-	<div id='artDisplay'>
-		@{foreach i in model}
-			<div class="tile">
-				<input type="hidden" value=@{i.art_id}>
-				<input type="hidden" value=@{i.artist_id}>
-				<h4 class='name'><b>@{i.name}</b></h4>
-				<img src="/i/iris_garden.jpg" alt="">
-				<p class='desc'>@{i.description}</p>
-				
-				<div class="bottom">
-					
-					<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.artist_id}/art/#{i.id}/edit' data-make-edit-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-edit fa-2x'></span></a>
-					<h3 class='price'>@{i.price}</h3>
-					<a class='glyphD' data-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-remove fa-2x'></span></a>
-				</div>	
+	<br>
 
-			</div>
-		@{end}
+	<div id='artDisplay'>
+		@{if model[0].art_id}
+			@{foreach i in model}
+				<div class="tile">
+					<input type="hidden" value=@{i.art_id}>
+					<input type="hidden" value=@{i.artist_id}>
+					<h4 class='name'><b>@{i.name}</b></h4>
+					<img src="/i/iris_garden.jpg" alt="">
+					<p class='desc'>@{i.description}</p>
+					
+					<div class="bottom">
+						
+						<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.artist_id}/art/#{i.id}/edit' data-make-edit-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-edit fa-2x'></span></a>
+						<h3 class='price'>@{i.price}</h3>
+						<a class='glyphD' data-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-remove fa-2x'></span></a>
+					</div>	
+
+				</div>
+			@{end}
+		@{else}
+			<h5 class='center'>This artist currently has no art.</h5>
+		@{fi}
 	</div>
 
 </div>
