@@ -61,15 +61,19 @@ hr {
 	display: inline-block;
 	position: relative;
 	padding: 15px 80px;
-	color: $color;
-	border: 1px solid $color;
+	color: $blue;
+	border: 1px solid $blue;
 	text-decoration: none;
 	border-radius: 4px;
 }
 
 .linkbutton:hover { 
 	color: white;
-	background-color: $color;
+	background-color: $blue;
+}
+
+div#welcome {
+	margin: 0 10vw;
 }
 
 #artists, #art{

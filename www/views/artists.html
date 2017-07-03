@@ -49,9 +49,13 @@
 			<br>
 		</form>
 		
-		@{if repository.flash}
+		@{if repository.flash == 'edits_saved'}
 			<p class='success'>Your changes were successfully saved.</p>
 		@{fi}
+		@{if repository.flash == 'added'}
+			<p class='success'>Your artist was successfully added.</p>
+		@{fi}
+
 	</div>
 
 

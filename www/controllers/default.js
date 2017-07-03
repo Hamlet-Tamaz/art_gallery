@@ -40,7 +40,7 @@ function view_artists() {
 				return;
 			}
 			else {
-				if(self.req.query.flash == 'saved') {
+				if(self.req.query.flash) {
 					self.repository.flash = self.req.query.flash;
 				}
 
@@ -61,7 +61,7 @@ function create_artist() {
 					return;
 				}
 				else {
-					self.redirect('/artists');
+					self.redirect('/artists?flash=added');
 				}
 		})
 	})
@@ -152,7 +152,7 @@ function view_all_art() {
 				return;
 			}
 			else {
-				if(self.req.query.flash == 'saved') {
+				if(self.req.query.flash == 'edits_saved') {
 					self.repository.flash = self.req.query.flash;
 				}
 				
@@ -216,7 +216,7 @@ function create_art() {
 					return;
 				}
 				else {
-					self.redirect('/artists/'+self.body.artist_id+'/art');
+					self.redirect('/artists/'+self.body.artist_id+'/art?flash=added');
 				}
 		})
 	})

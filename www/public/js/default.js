@@ -42,7 +42,7 @@ $(document).ready(function() {
 				}
 			}).then(function(res) {
 				console.log('edits saved');
-				window.location = '/artists?flash=saved';
+				window.location = '/artists?flash=edits_saved';
 			})
 		});
 	});
@@ -117,7 +117,7 @@ $(document).ready(function() {
 				}
 			}).then(function(res) {
 				console.log('edits saved');
-				window.location = '/artists/'+form.artist_id.value+'/art?flash=saved';
+				window.location = '/artists/'+form.artist_id.value+'/art?flash=edits_saved';
 			})
 		});
 	});
