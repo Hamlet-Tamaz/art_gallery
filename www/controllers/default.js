@@ -183,7 +183,6 @@ function view_artist_art() {
 				// if(!result.rows[0].artist_id) {
 				// 	result = [{artist_id: '', }]
 				// }
-
 				self.repository.art = self.req.query;
 				self.view('art', result.rows);
 			}

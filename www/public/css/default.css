@@ -203,6 +203,10 @@ form .btn:hover  {
 .success {
 	color: $green;
 }
+div#form p.success{
+	position: relative;
+	left: -9vw;
+}
 .fa-remove {
 	color: $red;
 }

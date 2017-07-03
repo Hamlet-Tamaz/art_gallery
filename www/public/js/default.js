@@ -117,6 +117,28 @@ $(document).ready(function() {
 		});
 	});
 
+	// submit edits
+	$('div#form form#editArt input[type="submit"]').on('click', function(e) {
+		e.preventDefault();
+debugger;
+		window.location.search = '';
+		var form = $('div#form form#editArt')[0].children;
+
+		$.ajax({
+			method: 'PUT',
+			url: e.target.parentElement.dataset.action,
+			data: {
+				id: form.id.value,
+				artist_id: form.artist_id.value,
+				name: form[4].children.name.value,
+				price: form[4].children.price.value,
+				desc: form[4].children.desc.value
+			}
+		}).then(function(res) {
+			window.location = '/artists/'+form.artist_id.value+'/art?flash=edits_saved';
+		})
+	});
+
 	//delete art
 	$('#art .glyphD').on('click', function(e) {
 		
@@ -149,6 +171,23 @@ $(document).ready(function() {
 	//	ARTS
 
 	// dynamic list update
+	function deleteFromArts(e) {
+		debugger;
+		var deleteUrl = e.target.parentElement.dataset.url;
+		$.ajax({
+			method: "DELETE",
+			url: deleteUrl
+		}).then(function(raw) {
+
+			var item = e.currentTarget.parentElement;
+
+			item.innerHTML = 'Successfully deleted art';
+			item.style.color = '#F25F5C';
+			item.style.border = 'none';
+			item.style.height = 'auto';
+
+		});
+	}
 
 	$('div#arts select').on('change', function(e) {
 		$.get('/art/' + e.target.value, function(artists) {
@@ -166,9 +205,9 @@ $(document).ready(function() {
 				tile.append("<img src='/i/iris_garden.jpg'>");
 				tile.append("<p class='desc'>"+ el.description +"</p>");
 
-				bottom.append("<a class='glyphE' data-get-edit-url='/artists/" + el.artist_id + "/art/" + el.id + "/edit' data-make-edit-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-edit fa-2x'></span></a>");
+				bottom.append("<a class='glyphE' href='/artists/"+ el.artist_id +"/art?artist_id="+ el.artist_id +"&art_id="+ el.art_id +"&name="+ el.name +"&price="+ el.price +"&desc="+ el.description +"&url=artists/"+ el.artist_id +"/art/"+ el.art_id +"' data-get-edit-url='/artists/" + el.artist_id + "/art/" + el.id + "/edit' data-make-edit-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-edit fa-2x'></span></a>");
 				bottom.append("<h3 class='price'>" + el.price + "</h3>");
-				bottom.append("<a class='glyphD' data-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-remove fa-2x'></span></a>");
+				bottom.append("<a class='glyphD' data-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-remove fa-2x'></span></a>").on('click', deleteFromArts);
 
 				tile.append(bottom);
 
@@ -180,8 +219,7 @@ $(document).ready(function() {
 	
 	// delete art from arts
 
-	$('#arts .glyphD').on('click', function(e) {
-		
+	$('#arts .glyphD').on('click', function (e) {
 		var deleteUrl = e.currentTarget.dataset.url;
 		$.ajax({
 			method: "DELETE",

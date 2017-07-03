@@ -35,12 +35,12 @@ INSERT INTO artists (first_name, last_name, dob, email) VALUES
 
 
 INSERT INTO art (artist_id, name, description, price) VALUES 
-(1, 'first Vincent name', 'first Vincent description', 12),
-(1, 'second Vincent name', 'second Vincent description', 15),
+(1, 'first Vincent name', 'first Vincent description', 124),
+(1, 'second Vincent name', 'second Vincent description', 153),
 (1, 'third Vincent name', 'third Hamlet description', 145),
 
-(2, 'first Salvador name', 'first Salvador description', 19),
-(2, 'second Salvador name', 'second Salvador description', 72),
+(2, 'first Salvador name', 'first Salvador description', 198),
+(2, 'second Salvador name', 'second Salvador description', 752),
 (2, 'third Salvador name', 'third Salvador description', 125),
 
 (3, 'first Pablo name', 'first Pablo description', 125),
