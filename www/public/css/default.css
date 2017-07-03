@@ -15,11 +15,16 @@ nav {
 nav ul {
 	list-style: none;
 	background-color: $grey;
-	padding: 10px 50px;
+	padding: 10px 6vw;
 }
 nav ul li {
 	display: inline;
-	margin-right: 10px;
+	margin-right: 20px;
+}
+nav ul li:nth-child(1) {
+	color: $yellow;
+	float: left;
+	font-size: 20px;
 }
 nav ul li a{
 	color: white;
@@ -76,7 +81,7 @@ div#welcome {
 	margin: 0 10vw;
 }
 
-#artists, #art{
+#artists, #art, #arts{
 	margin: 0 15px;
 	text-align: center;
 }
@@ -103,9 +108,13 @@ form .btn:hover  {
 #artists form .ro br, #art form .ro br {
 	display: none;
 }
-#artists form input, #art form input {
+#artists form input, #art form input, #art form button {
 	margin-right: 10px;
 	margin-bottom: 5px;
+}
+/*#artists form input[name=fname], #artists form input[name=lname], #artists form input[name=email], #art form input[name=name] {*/
+#artists form input, #art form input {
+	max-width: 30%;
 }
 #artists table {
 	text-align: left;
@@ -147,7 +156,7 @@ form .btn:hover  {
 #artDisplay {
 	text-align: left;
 }
-#art .tile {
+#art .tile, #arts .tile {
 	display: inline-block;
 	border: 2px solid black;
 	height: 100%;
@@ -155,24 +164,24 @@ form .btn:hover  {
 	max-width: 240px;
 	margin: 30px;
 }
-#art .tile .artist {
+#art .tile .artist, #arts .tile .artist {
 	text-align: center;
 	border-bottom: solid black 2px;
 	background-color: $yellow;
 }
-#art .tile .name {
+#art .tile .name, #arts .tile .name {
 	border-bottom: solid black 2px;
 	text-align: center;
 }
-#art .tile img {
+#art .tile img, #arts .tile img {
 	width: 100%;
 	position: relative;
 	top: -8px;
 }
-#art .tile .desc {
+#art .tile .desc, #arts .tile .desc {
 	padding: 5px 10px;
 }
-#art .tile .bottom {
+#art .tile .bottom, #arts .tile .bottom {
 	/*position: relative;*/
 	padding: 10px;
 	/*top: 8px;*/
@@ -180,18 +189,18 @@ form .btn:hover  {
 	color: $yellow;
 	text-align: center;
 }
-#art .tile .price:hover {
+#art .tile .price:hover, #arts .tile .price:hover {
 	cursor: pointer;
 }
-#art .tile .bottom h3{
+#art .tile .bottom h3, #arts .tile .bottom h3 {
 	display: inline;
 }
-#art .glyphE {
+#art .glyphE, #arts .glyphE {
 	position: relative;
 	color: white;
 	float: left;
 }
-#art .glyphD {
+#art .glyphD, #arts .glyphD {
 	position: relative;
 	float: right;
 }
@@ -217,13 +226,18 @@ footer {
 }
 
 
-@media all and (max-width: 550px) {
+@media all and (max-width: 770px) {
 	#artists form .ro, #art form .ro {
 		text-align: center;
 	}
 	#artists form .ro br, #art form .ro br {
 		display: block;
 	}
+	#artists form input, #art form input {
+		max-width: 60%;
+	}
+}
+@media all and (max-width: 550px) {
 	#artists table td:nth-child(3) {
 		word-break: break-all;
 	}

@@ -86,19 +86,19 @@ $(document).ready(function() {
 		var makeEditUrl = e.currentTarget.dataset.makeEditUrl;
 
 
-		var tile = e.currentTarget.parentElement.children,
+		var tile = e.currentTarget.parentElement.parentElement.children,
 				form = $('div#form form#editArt')[0].children;
 		
-		console.log('tile: ', +tile[5].innerHTML.substring(1, tile[5].innerHTML.length));
-		console.log('form: ', form);
+		// console.log('tile: ', +tile[5].innerHTML.substring(1, tile[5].innerHTML.length));
+		// console.log('form: ', form);
 
 		$('div#form form#newArt').css('display', 'none');
 		$('div#form form#editArt').css('display', 'block');
-		
+		// debugger;
 		form.id.value = tile[0].value;
 		form.artist_id.value = tile[1].value;
 		form[3].children.name.value = tile[2].innerHTML;
-		form[3].children.price.value = +tile[5].innerHTML.substring(1, tile[5].innerHTML.length);
+		form[3].children.price.value = +tile[5].children[1].innerHTML.substring(1, tile[5].innerHTML.length);
 		form[3].children.desc.innerHTML = tile[4].innerHTML;
 
 
@@ -151,13 +151,58 @@ $(document).ready(function() {
 
 	//	ARTS
 
-	$('div#art select').on('change', function(e) {
-		// debugger;
 
-		$.get('/art/' + e.target.value, function(res) {
-			console.log('res', res)
-		})
+	// dynamic list update
+
+	$('div#arts select').on('change', function(e) {
+		$.get('/art/' + e.target.value, function(artists) {
+			console.log('artists', artists);
+
+			$('div#artDisplay').empty();
+			
+			artists.forEach(function(el, i) {
+				var tile = $('<div>', {'class': 'tile'});
+				var bottom = $('<div>', {'class': 'bottom'});
+
+				tile.append("<input type='hidden' value="+ el.art_id +">");
+				tile.append("<input type='hidden' value="+ el.artist_id +">");
+				tile.append("<h4 class='artist'>" + el.first_name + el.last_name +"</h4>");
+				tile.append("<h4 class='name'><b>"+ el.name +"</b></h4>");
+				tile.append("<img src='/i/iris_garden.jpg'>");
+				tile.append("<p class='desc'>"+ el.description +"</p>");
+
+				bottom.append("<a class='glyphE' data-get-edit-url='/artists/" + el.artist_id + "/art/" + el.id + "/edit' data-make-edit-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-edit fa-2x'></span></a>");
+				bottom.append("<h3 class='price'>" + el.price + "</h3>");
+				bottom.append("<a class='glyphD' data-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-remove fa-2x'></span></a>");
+
+				tile.append(bottom);
+
+				$('div#artDisplay').append(tile);
+			});
+		});
 		// window.location = '/art/' + e.target.value;
-	})
+	});
+
+	
+	// delete art from arts
+
+	$('#arts .glyphD').on('click', function(e) {
+		
+		var deleteUrl = e.currentTarget.dataset.url;
+		$.ajax({
+			method: "DELETE",
+			url: deleteUrl
+		}).then(function(raw) {
+
+			var item = e.currentTarget.parentElement.parentElement;
+
+			item.innerHTML = 'Successfully deleted art';
+			item.style.color = '#F25F5C';
+			item.style.border = 'none';
+			item.style.height = 'auto';
+
+		});
+	});	
+
 
 });

@@ -158,7 +158,7 @@ function view_all_art() {
 				
 				var ids = [];
 
-				var artists = [{id: 0, name: 'please select artist'}]
+				var artists = [{id: '*', name: 'All Artists'}]
 				
 
 				result.rows.forEach(function(el) {		
@@ -184,7 +184,6 @@ function view_all_art() {
 function view_artist_art() {
 	var self = this;
 
-	console.log('query: ', self.req.query)
 
 	F.database(function(err, client, done) {
 		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id', function(err, result) {
@@ -195,10 +194,17 @@ function view_artist_art() {
 				return;
 			}
 			else {
-				if(self.req.query.flash == 'saved') {
+				if(self.req.query.flash) {
 					self.repository.flash = self.req.query.flash;
 				}
+				
 
+				if (self.req.query.price) self.req.query.price = +self.req.query.price.substring(1, self.req.query.price.length);
+	
+	console.log('query: ', self.req.query)
+				
+
+				self.repository.art = self.req.query;
 				self.view('art', result.rows);
 			}
 		});

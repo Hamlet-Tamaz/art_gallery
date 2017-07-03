@@ -1,6 +1,6 @@
 @{title('Art')}
 
-<div id="art">
+<div id="arts">
 
 	<h2>Art</h2>
 
@@ -16,13 +16,13 @@
 				<input type="hidden" value=@{i.art_id}>
 				<input type="hidden" value=@{i.artist_id}>
 				<h4 class='artist'>@{i.first_name} @{i.last_name}</h4>
-				<h4 class='name'>@{i.name}</h4>
+				<h4 class='name'><b>@{i.name}</b></h4>
 				<img src="/i/iris_garden.jpg" alt="">
 				<p class='desc'>@{i.description}</p>
 				
 				<div class="bottom">
 					
-					<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.artist_id}/art/#{i.id}/edit' data-make-edit-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-edit fa-2x'></span></a>
+					<a class='glyphE' href="/artists/@{i.artist_id}/art?artist_id=@{i.artist_id}&art_id=@{i.art_id}&name=@{i.name}&price=@{i.price}&desc=@{i.description}&url=artists/@{i.artist_id}/art/@{i.art_id}"><span class='fa fa-edit fa-2x'></span></a>
 					<h3 class='price'>@{i.price}</h3>
 					<a class='glyphD' data-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-remove fa-2x'></span></a>
 				</div>	
