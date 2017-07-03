@@ -1,7 +1,7 @@
 @{title('Art')}
 
 <div id="art">
-	<div id="form">
+<!-- 	<div id="form">
 		<form id='newArt' action="/artists/@{model[0].artist_id}/art" method="post">
 			<h2 class='center'>Add New Art</h2>
 				
@@ -9,7 +9,7 @@
 			<div class='ro'>
 				<label class='col col-2' for="name">Name: </label><input form='newArt' class='col col-3' name='name' type="text" placeholder="art name" autofocus required>
 				<br>
-				<label class='col col-2' for="price">Price: $</label><input form='newArt' class='col col-3' name='price' type="number" placeholder="art price" min='0' step="any">
+				<label class='col col-2' for="price">Price: $</label><input form='newArt' class='col col-3' name='price' type="number" placeholder="" min='0' step="any">
 			
 				<br>
 				<br>
@@ -57,17 +57,24 @@
 		@{fi}
 	</div>
 
-
 <hr />
 <br />
+ -->
 
-	<h2>@{model[0].first_name} @{model[0].last_name}'s Art</h2>
+	<h2>Art</h2>
+
+	<select name="artists" id="">
+		@{foreach a in repository.artists}
+			<option value="@{a.id}">@{a.name}</option>
+		@{end}
+	</select>
 	
 	<div id='artDisplay'>
 		@{foreach i in model}
 			<div class="tile">
 				<input type="hidden" value=@{i.art_id}>
 				<input type="hidden" value=@{i.artist_id}>
+				<h4 class='artist'>@{i.first_name} @{i.last_name}</h4>
 				<h4 class='name'>@{i.name}</h4>
 				<img src="/i/iris_garden.jpg" alt="">
 				<p class='desc'>@{i.description}</p>

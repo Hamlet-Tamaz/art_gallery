@@ -49,12 +49,16 @@
 			<br>
 		</form>
 		
+		@{if repository.flash}
+			<p class='success'>Your changes were successfully saved.</p>
+		@{fi}
 	</div>
 
 
 <hr />
 <br />
-
+	
+	<p>*click on artists to see their art</p>
 	<h2>Artists</h2>
 
 	<table>

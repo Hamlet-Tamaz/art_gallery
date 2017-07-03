@@ -2,15 +2,17 @@ exports.install = function() {
 	F.route('/', view_index);
 
 	F.route('/artists', view_artists, ['get']);
-	F.route('/artists/{id}', view_artist, ['get']);
+	// F.route('/artists/{id}', view_artist, ['get']);
 	F.route('/artists', create_artist, ['post']);
 	F.route('/artists/{id}/edit', show_edit_artist, ['get']);
 	F.route('/artists/{id}', edit_artist, ['put']);
 	F.route('/artists/{id}', delete_artist, ['delete']);
 	
 
-	F.route('/artists/{id}/art', view_all_art, ['get']);
-	F.route('/artists/{id}/art/{art_id}', view_art, ['get']);
+	F.route('/art', view_all_art, ['get']);
+	F.route('/art/{artist_id}', get_artist_art, ['get']);
+
+	F.route('/artists/{id}/art', view_artist_art, ['get']);
 	F.route('/artists/{id}/art', create_art, ['post']);
 	F.route('/artists/{id}/art/{art_id}/edit', show_edit_art, ['get']);
 	F.route('/artists/{id}/art/{art_id}', edit_art, ['put']);
@@ -38,7 +40,10 @@ function view_artists() {
 				return;
 			}
 			else {
-				console.log('res: ', result.rows)
+				if(self.req.query.flash == 'saved') {
+					self.repository.flash = self.req.query.flash;
+				}
+
 				self.view('artists', result.rows);
 			}
 		});
@@ -74,7 +79,6 @@ function view_artist() {
 				return;
 			}
 			else {
-				console.log('res: ', result)
 				self.view('artist', result);
 			}
 		})
@@ -92,7 +96,6 @@ function show_edit_artist() {
 				return;
 			}
 			else {
-				console.log('artist edit info:', result)
 				self.json(result.rows[0]);
 			}
 		})
@@ -103,7 +106,6 @@ function show_edit_artist() {
 
 function edit_artist() {
 	var self = this;
-	console.log('body: ', self.body)
 	
 	DB(function(err, client, done) {
 		client.query('UPDATE artists SET first_name=$1, last_name=$2, dob=$3, email=$4 WHERE id=$5', [self.body.fname, self.body.lname, self.body.dob, self.body.email, self.body.id], 
@@ -123,7 +125,6 @@ function edit_artist() {
 function delete_artist() {
 	var self = this;
 
-console.log('id: ', self.req.path[1])
 
 	DB(function(err, client, done) {
 		client.query('DELETE from artists WHERE id=$1', [self.req.path[1]], 
@@ -141,6 +142,49 @@ console.log('id: ', self.req.path[1])
 
 function view_all_art() {
 	var self = this;
+	
+	F.database(function(err, client, done) {
+		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id  ORDER BY art.id', function(err, result) {
+			done();
+
+			if(err != null) {
+				self.throw500(err);
+				return;
+			}
+			else {
+				if(self.req.query.flash == 'saved') {
+					self.repository.flash = self.req.query.flash;
+				}
+				
+				var ids = [];
+
+				var artists = [{id: 0, name: 'please select artist'}]
+				
+
+				result.rows.forEach(function(el) {		
+					var name = el.first_name + ' ' + el.last_name,
+						obj = {id: el.artist_id, name: name};
+			
+					if(ids.indexOf(el.artist_id) < 0 ) {
+						artists.push(obj)
+						ids.push(el.artist_id);
+					}
+				});
+
+
+				self.repository.artists = artists;
+				console.log("rep: ", self.repository)
+				self.view('arts', result.rows);
+			}
+		});
+	});
+
+}
+
+function view_artist_art() {
+	var self = this;
+
+	console.log('query: ', self.req.query)
 
 	F.database(function(err, client, done) {
 		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id', function(err, result) {
@@ -151,7 +195,10 @@ function view_all_art() {
 				return;
 			}
 			else {
-				console.log('res: ', result.rows);
+				if(self.req.query.flash == 'saved') {
+					self.repository.flash = self.req.query.flash;
+				}
+
 				self.view('art', result.rows);
 			}
 		});
@@ -161,9 +208,6 @@ function view_all_art() {
 function create_art() {
 	var self = this;
 	
-	console.log('body: ', self.body)
-
-
 	DB(function(err, client, done) {
 		client.query('INSERT INTO art (artist_id, name, description, price) VALUES ($1, $2, $3, $4)', [+self.body.artist_id, self.body.name, self.body.desc, +self.body.price], 
 			function(err, result) {
@@ -179,19 +223,20 @@ function create_art() {
 }
 
 
-function view_art() {
+function get_artist_art() {
 	var self = this;
 
 	DB(function(err, client, done){
-		client.query('SELECT id, first_name, last_name, dob, email FROM artists',
+		client.query('SELECT artists.id AS artist_id, artists.first_name, artists.last_name, artists.dob, artists.email, art.id AS art_id, art.name, art.description, art.price FROM artists JOIN art ON artists.id=art.artist_id WHERE artists.id='+self.req.path[1]+' ORDER BY art.id',
 		function(err, result) {
 			if(err != null) {
 				self.throw500(err);
 				return;
 			}
 			else {
-				console.log('res: ', result)
-				self.view('artist', result);
+
+				console.log('artist: ', result.rows)
+				self.json(result.rows);
 			}
 		})
 	})
@@ -208,7 +253,6 @@ function show_edit_art() {
 				return;
 			}
 			else {
-				console.log('artist edit info:', result)
 				self.json(result.rows[0]);
 			}
 		})
@@ -219,7 +263,6 @@ function show_edit_art() {
 
 function edit_art() {
 	var self = this;
-	console.log('body: ', self.body)
 	
 	DB(function(err, client, done) {
 		client.query('UPDATE art SET artist_id=$1, name=$2, price=$3, description=$4 WHERE id=$5', [self.body.artist_id, self.body.name, self.body.price, self.body.desc, self.body.id], 
@@ -238,8 +281,6 @@ function edit_art() {
 
 function delete_art() {
 	var self = this;
-
-console.log('id: ', self.req.path[1])
 
 	DB(function(err, client, done) {
 		client.query('DELETE from art WHERE id=$1', [self.req.path[3]], 

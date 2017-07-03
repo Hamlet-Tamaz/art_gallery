@@ -8,6 +8,8 @@ $(document).ready(function() {
 
 	// edit artist
 	$('#artists .glyphE').on('click', function(e) {
+		$('div#form p.success').remove();
+
 		
 		var getEditUrl = e.currentTarget.dataset.getEditUrl;
 		var makeEditUrl = e.currentTarget.dataset.makeEditUrl;
@@ -17,7 +19,6 @@ $(document).ready(function() {
 
 		var artist = e.currentTarget.parentElement.parentElement.children,
 				form = $('div#form form#editArtist')[0].children;
-	debugger;
 
 		form.id.value = artist[0].innerHTML;
 		form.fname.value = artist[1].innerHTML;
@@ -41,7 +42,7 @@ $(document).ready(function() {
 				}
 			}).then(function(res) {
 				console.log('edits saved');
-				window.location = '/artists';
+				window.location = '/artists?flash=saved';
 			})
 		});
 	});
@@ -66,7 +67,7 @@ $(document).ready(function() {
 		});
 	});
 
-	//	toggle Artist form
+	//	toggle to newArtist form
 
 	$('form#editArtist button').on('click', function(e) {
 		$('div#form form#newArtist').css('display', 'block');
@@ -79,7 +80,7 @@ $(document).ready(function() {
 
 	// edit art
 	$('#art .glyphE').on('click', function(e) {
-		console.log('e: ', e);
+		$('div#form p.success').remove();
 
 		var getEditUrl = e.currentTarget.dataset.getEditUrl;
 		var makeEditUrl = e.currentTarget.dataset.makeEditUrl;
@@ -112,11 +113,11 @@ $(document).ready(function() {
 					artist_id: form.artist_id.value,
 					name: form[3].children.name.value,
 					price: form[3].children.price.value,
-					desc: form.desc.value
+					desc: form[3].children.desc.value
 				}
 			}).then(function(res) {
 				console.log('edits saved');
-				window.location = '/artists/'+form.artist_id.value+'/art';
+				window.location = '/artists/'+form.artist_id.value+'/art?flash=saved';
 			})
 		});
 	});
@@ -139,15 +140,24 @@ $(document).ready(function() {
 
 		});
 	});	
-});
 
-//	toggle Art form
+//	toggle to newArt form
 
 	$('form#editArt button').on('click', function(e) {
-		alert('here');
-		$('div#form form#newArt').css('display', 'none');
-		$('div#form form#editArt').css('display', 'block');
+		$('div#form form#newArt').css('display', 'block');
+		$('div#form form#editArt').css('display', 'none');
 	});
 
 
+	//	ARTS
 
+	$('div#art select').on('change', function(e) {
+		// debugger;
+
+		$.get('/art/' + e.target.value, function(res) {
+			console.log('res', res)
+		})
+		// window.location = '/art/' + e.target.value;
+	})
+
+});

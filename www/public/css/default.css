@@ -99,8 +99,9 @@ form .btn:hover  {
 #artists form .ro br, #art form .ro br {
 	display: none;
 }
-#artists form input {
+#artists form input, #art form input {
 	margin-right: 10px;
+	margin-bottom: 5px;
 }
 #artists table {
 	text-align: left;
@@ -131,6 +132,10 @@ form .btn:hover  {
 #art label, #artists label {
 	max-width: 105px;
 }
+#art input[name=price] ::before {
+  content: "\00a3"; /* £ */
+  padding: 3px 4px 3px 3px;	
+}
 #art textarea {
 	max-width: 90%;
 	padding: 10px
@@ -141,10 +146,15 @@ form .btn:hover  {
 #art .tile {
 	display: inline-block;
 	border: 2px solid black;
-	height: 314px;
+	height: 100%;
 	width: auto;
 	max-width: 240px;
 	margin: 30px;
+}
+#art .tile .artist {
+	text-align: center;
+	border-bottom: solid black 2px;
+	background-color: $yellow;
 }
 #art .tile .name {
 	border-bottom: solid black 2px;
@@ -158,10 +168,10 @@ form .btn:hover  {
 #art .tile .desc {
 	padding: 5px 10px;
 }
-#art .tile .price {
-	position: relative;
+#art .tile .bottom {
+	/*position: relative;*/
 	padding: 10px;
-	top: 8px;
+	/*top: 8px;*/
 	background-color: $green;
 	color: $yellow;
 	text-align: center;
@@ -169,16 +179,17 @@ form .btn:hover  {
 #art .tile .price:hover {
 	cursor: pointer;
 }
+#art .tile .bottom h3{
+	display: inline;
+}
 #art .glyphE {
 	position: relative;
-	top: -38px;
 	color: white;
-	left: 8px;
+	float: left;
 }
 #art .glyphD {
 	position: relative;
-	top: -39px;
-	left: 180px;
+	float: right;
 }
 .glyphE, .glyphD {
 	z-index: 10;
@@ -189,7 +200,9 @@ form .btn:hover  {
 
 
 
-
+.success {
+	color: $green;
+}
 .fa-remove {
 	color: $red;
 }
