@@ -2,15 +2,10 @@ exports.install = function() {
 	F.route('/', view_index);
 
 	F.route('/artists', view_artists, ['get']);
-	// F.route('/artists/{id}', view_artist, ['get']);
 	F.route('/artists', create_artist, ['post']);
 	F.route('/artists/{id}/edit', show_edit_artist, ['get']);
 	F.route('/artists/{id}', edit_artist, ['put']);
 	F.route('/artists/{id}', delete_artist, ['delete']);
-	
-
-	F.route('/art', view_all_art, ['get']);
-	F.route('/art/{artist_id}', get_artist_art, ['get']);
 
 	F.route('/artists/{id}/art', view_artist_art, ['get']);
 	F.route('/artists/{id}/art', create_art, ['post']);
@@ -18,7 +13,8 @@ exports.install = function() {
 	F.route('/artists/{id}/art/{art_id}', edit_art, ['put']);
 	F.route('/artists/{id}/art/{art_id}', delete_art, ['delete']);
 
-
+	F.route('/art', view_all_art, ['get']);
+	F.route('/art/{artist_id}', get_artist_art, ['get']);
 };
 
 function view_index() {
@@ -67,23 +63,6 @@ function create_artist() {
 	})
 }
 
-
-function view_artist() {
-	var self = this;
-
-	DB(function(err, client, done){
-		client.query('SELECT id, first_name, last_name, dob, email FROM artists',
-		function(err, result) {
-			if(err != null) {
-				self.throw500(err);
-				return;
-			}
-			else {
-				self.view('artist', result);
-			}
-		})
-	})
-}
 
 function show_edit_artist() {
 	var self = this;
@@ -173,7 +152,6 @@ function view_all_art() {
 
 
 				self.repository.artists = artists;
-				console.log("rep: ", self.repository)
 				self.view('arts', result.rows);
 			}
 		});
@@ -201,13 +179,10 @@ function view_artist_art() {
 
 				if (self.req.query.price) self.req.query.price = +self.req.query.price.substring(1, self.req.query.price.length);
 	
-	console.log('query: ', self.req.query)
-	console.log('res: ', result)
 				
 				// if(!result.rows[0].artist_id) {
 				// 	result = [{artist_id: '', }]
 				// }
-				console.log('res2: ', result)
 
 				self.repository.art = self.req.query;
 				self.view('art', result.rows);
@@ -253,7 +228,6 @@ function get_artist_art() {
 			}
 			else {
 
-				console.log('artist: ', result.rows)
 				self.json(result.rows);
 			}
 		})

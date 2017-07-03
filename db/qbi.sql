@@ -25,19 +25,28 @@ INSERT INTO artists (first_name, last_name, dob, email) VALUES
 ('Artur', 'Tamazyan', '1971-01-23', 'arturtamaz@gmail.com'), 
 ('Rufina', 'Hovakimyan', '1993-02-18', 'rufina@gmail.com');
 
+INSERT INTO artists (first_name, last_name, dob, email) VALUES 
+('Vincent', 'van Gogh', '1853-03-30', 'rufina@gmail.com'),
+('Salvador', 'Dali', '1904-05-11', 'alaintamaz@gmail.com'), 
+('Pablo', 'Picasso', '1885-10-25', 'lifeofpable@gmail.com'), 
+('Claude', 'Monet', '1840-11-14', 'arturtamaz@gmail.com');
+
+
+
+
 INSERT INTO art (artist_id, name, description, price) VALUES 
-(1, 'first Hamlet name', 'first Hamlet description', 12),
-(1, 'second Hamlet name', 'second Hamlet description', 15),
-(1, 'third Hamlet name', 'third Hamlet description', 145),
+(1, 'first Vincent name', 'first Vincent description', 12),
+(1, 'second Vincent name', 'second Vincent description', 15),
+(1, 'third Vincent name', 'third Hamlet description', 145),
 
-(2, 'first Alain name', 'first Alain description', 19),
-(2, 'second Alain name', 'second Alain description', 72),
-(2, 'third Alain name', 'third Alain description', 125),
+(2, 'first Salvador name', 'first Salvador description', 19),
+(2, 'second Salvador name', 'second Salvador description', 72),
+(2, 'third Salvador name', 'third Salvador description', 125),
 
-(3, 'first Artur name', 'first Artur description', 125),
-(3, 'second Artur name', 'second Artur description', 124),
-(3, 'third Artur name', 'third Artur description', 612),
+(3, 'first Pablo name', 'first Pablo description', 125),
+(3, 'second Pablo name', 'second Pablo description', 124),
+(3, 'third Pablo name', 'third Pablo description', 612),
 
-(4, 'first Rufa name', 'first Rufa description', 512),
-(4, 'second Rufa name', 'second Rufa description', 412),
-(5, 'third Rufa name', 'third Rufa description', 312);
+(4, 'first Claude name', 'first Claude description', 512),
+(4, 'second Claude name', 'second Claude description', 412),
+(4, 'third Claude name', 'third Claude description', 312);

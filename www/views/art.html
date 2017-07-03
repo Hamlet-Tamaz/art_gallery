@@ -26,7 +26,6 @@
 			<input type="submit" class='btn'>
 		</form>
 
-
 		<form id='editArt' action="@{repository.art.url}" method="put" @{if repository.art.art_id} style='display:block' @{fi}>
 			<h2 class='center'>Edit Art</h2>
 
@@ -64,7 +63,6 @@
 		@{fi}
 	</div>
 
-
 <hr />
 <br />
 
@@ -83,7 +81,6 @@
 					<p class='desc'>@{i.description}</p>
 					
 					<div class="bottom">
-						
 						<a class='glyphE' href="#form" data-get-edit-url='/artists/@{i.artist_id}/art/#{i.id}/edit' data-make-edit-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-edit fa-2x'></span></a>
 						<h3 class='price'>@{i.price}</h3>
 						<a class='glyphD' data-url='/artists/@{i.artist_id}/art/@{i.art_id}'><span class='fa fa-remove fa-2x'></span></a>
@@ -95,5 +92,4 @@
 			<h5 class='center'>This artist currently has no art.</h5>
 		@{fi}
 	</div>
-
 </div>

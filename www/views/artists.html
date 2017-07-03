@@ -42,8 +42,8 @@
 			</div>
 
 			<br>
+			
 			<div class="ro">
-				
 				<label class='col col-2' for="dob">Date of Birth: </label><input class='col col-3' name='dob' type="date">
 				<br>
 				<label class='col col-2' for="email">Email: </label><input class='col col-3' name='email' type="text" placeholder="youremail@domain.com" required>
@@ -52,7 +52,6 @@
 			<br>
 			<input type="submit" class='btn'>
 			<button class='btn'>Add NEW Artist</button>
-
 		</form>
 		
 		@{if repository.flash == 'edits_saved'}
@@ -61,7 +60,6 @@
 		@{if repository.flash == 'added'}
 			<p class='success'>Your artist was successfully added.</p>
 		@{fi}
-
 	</div>
 
 

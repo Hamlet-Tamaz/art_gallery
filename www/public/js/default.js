@@ -41,7 +41,6 @@ $(document).ready(function() {
 					email: $('div#form form#editArtist')[0].children[4].children.email.value
 				}
 			}).then(function(res) {
-				console.log('edits saved');
 				window.location = '/artists?flash=edits_saved';
 			})
 		});
@@ -75,8 +74,8 @@ $(document).ready(function() {
 	});
 
 	
-	//  	 ART
 
+	//  	 ART
 
 	// edit art
 	$('#art .glyphE').on('click', function(e) {
@@ -89,12 +88,9 @@ $(document).ready(function() {
 		var tile = e.currentTarget.parentElement.parentElement.children,
 				form = $('div#form form#editArt')[0].children;
 		
-		// console.log('tile: ', +tile[5].innerHTML.substring(1, tile[5].innerHTML.length));
-		// console.log('form: ', form);
-
 		$('div#form form#newArt').css('display', 'none');
 		$('div#form form#editArt').css('display', 'inline-block');
-		// debugger;
+
 		form.id.value = tile[0].value;
 		form.artist_id.value = tile[1].value;
 		form[4].children.name.value = tile[2].innerText;
@@ -140,7 +136,7 @@ $(document).ready(function() {
 		});
 	});	
 
-//	toggle to newArt form
+	//	toggle to newArt form
 
 	$('form#editArt button').on('click', function(e) {
 		e.preventDefault();
@@ -149,8 +145,8 @@ $(document).ready(function() {
 	});
 
 
-	//	ARTS
 
+	//	ARTS
 
 	// dynamic list update
 
@@ -179,7 +175,6 @@ $(document).ready(function() {
 				$('div#artDisplay').append(tile);
 			});
 		});
-		// window.location = '/art/' + e.target.value;
 	});
 
 	
@@ -202,6 +197,4 @@ $(document).ready(function() {
 
 		});
 	});	
-
-
 });

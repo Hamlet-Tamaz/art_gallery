@@ -1,6 +1,6 @@
 /*auto*/
 
-$color    : #67B13D;
+
 $oldGreenColor : #67B13D;
 $green : #70C1B3;
 $orange : #F25F5C;
@@ -43,7 +43,6 @@ body {
 	background-color: $blue;
 	line-height: 20px;
 }
-
 .container-background { 
 	background-color: white;
 }
@@ -52,16 +51,13 @@ body {
 	max-width: 960px;
 	padding: 40px 0 40px 5px;
 }
-
 .center { 
 	text-align: center;
 }
-
 hr { 
 	border: 0;
 	border-top: 1px solid #E0E0E0;
 }
-
 .linkbutton { 
 	display: inline-block;
 	position: relative;
@@ -71,16 +67,13 @@ hr {
 	text-decoration: none;
 	border-radius: 4px;
 }
-
 .linkbutton:hover { 
 	color: white;
 	background-color: $blue;
 }
-
 div#welcome {
 	margin: 0 10vw;
 }
-
 #artists, #art, #arts{
 	margin: 0 15px;
 	text-align: center;
@@ -94,10 +87,6 @@ div#welcome {
 form#editArtist, form#editArt {
 	display: none;
 }
-/*form#editArtist p {
-	color: white;
-	border-radius: 10px;
-}*/
 form .row {
 	margin: 0 auto;
 }
@@ -105,9 +94,6 @@ form .btn:hover  {
 	cursor: pointer;
 	background-color: $blue;
 }
-/*div#form form div.row > div {
-	display: inline;
-}*/
 #artists form .ro br, #art form .ro br {
 	display: none;
 }
@@ -115,7 +101,6 @@ form .btn:hover  {
 	margin-right: 10px;
 	margin-bottom: 5px;
 }
-/*#artists form input[name=fname], #artists form input[name=lname], #artists form input[name=email], #art form input[name=name] {*/
 #artists form input, #art form input {
 	max-width: 30%;
 }
@@ -147,10 +132,6 @@ form .btn:hover  {
 }
 #art label, #artists label {
 	max-width: 105px;
-}
-#art input[name=price] ::before {
-  content: "\00a3"; /* £ */
-  padding: 3px 4px 3px 3px;	
 }
 #art textarea {
 	max-width: 90%;
@@ -190,9 +171,7 @@ form .btn:hover  {
 	padding: 5px 10px;
 }
 #art .tile .bottom, #arts .tile .bottom {
-	/*position: relative;*/
 	padding: 10px;
-	/*top: 8px;*/
 	background-color: $green;
 	color: $yellow;
 	text-align: center;
@@ -219,7 +198,6 @@ form .btn:hover  {
 .glyphE:hover, .glyphD:hover {
 	cursor: pointer;
 }
-
 
 
 .success {
