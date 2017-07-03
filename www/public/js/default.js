@@ -61,7 +61,7 @@ $(document).ready(function() {
 			item.innerHTML = 'Successfully deleted artist';
 			item.style.color = '#F25F5C';
 			item.style.margin = '0 auto';
-			item.style.width = '25%';
+			item.style.width = '22vw';
 
 		});
 	});
@@ -120,7 +120,7 @@ $(document).ready(function() {
 	// submit edits
 	$('div#form form#editArt input[type="submit"]').on('click', function(e) {
 		e.preventDefault();
-debugger;
+
 		window.location.search = '';
 		var form = $('div#form form#editArt')[0].children;
 
@@ -154,6 +154,7 @@ debugger;
 			item.style.color = '#F25F5C';
 			item.style.border = 'none';
 			item.style.height = 'auto';
+			item.style.width = '100%';
 
 		});
 	});	
@@ -185,6 +186,7 @@ debugger;
 			item.style.color = '#F25F5C';
 			item.style.border = 'none';
 			item.style.height = 'auto';
+			item.style.width = '100%';
 
 		});
 	}
@@ -232,6 +234,7 @@ debugger;
 			item.style.color = '#F25F5C';
 			item.style.border = 'none';
 			item.style.height = 'auto';
+			item.style.width = '100%';
 
 		});
 	});	

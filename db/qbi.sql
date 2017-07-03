@@ -2,6 +2,8 @@
 -----------------------------
 CREATE DATABASE qbi;
 -----------------------------
+\c qbi
+-----------------------------
 CREATE TABLE artists (
 	id serial PRIMARY KEY,
 	first_name text NOT NULL,
@@ -19,17 +21,12 @@ CREATE TABLE art (
 );
 
 
-INSERT INTO artists (first_name, last_name, dob, email) VALUES 
-('Hamlet', 'Tamazian', '1993-01-22', 'hamlettamaz@gmail.com'), 
-('Alain', 'Tamazian', '1996-04-29', 'alaintamaz@gmail.com'), 
-('Artur', 'Tamazyan', '1971-01-23', 'arturtamaz@gmail.com'), 
-('Rufina', 'Hovakimyan', '1993-02-18', 'rufina@gmail.com');
 
 INSERT INTO artists (first_name, last_name, dob, email) VALUES 
-('Vincent', 'van Gogh', '1853-03-30', 'rufina@gmail.com'),
-('Salvador', 'Dali', '1904-05-11', 'alaintamaz@gmail.com'), 
+('Vincent', 'van Gogh', '1853-03-30', 'mririses@gmail.com'),
+('Salvador', 'Dali', '1904-05-11', 'meltingaway@gmail.com'), 
 ('Pablo', 'Picasso', '1885-10-25', 'lifeofpable@gmail.com'), 
-('Claude', 'Monet', '1840-11-14', 'arturtamaz@gmail.com');
+('Claude', 'Monet', '1840-11-14', 'dotdot@gmail.com');
 
 
 
