@@ -178,11 +178,7 @@ function view_artist_art() {
 				
 
 				if (self.req.query.price) self.req.query.price = +self.req.query.price.substring(1, self.req.query.price.length);
-	
-				
-				// if(!result.rows[0].artist_id) {
-				// 	result = [{artist_id: '', }]
-				// }
+
 				self.repository.art = self.req.query;
 				self.view('art', result.rows);
 			}

@@ -8,6 +8,8 @@ $(document).ready(function() {
 
 	// edit artist
 	$('#artists .glyphE').on('click', function(e) {
+	e.preventDefault();
+
 		$('div#form p.success').remove();
 
 		
@@ -20,12 +22,15 @@ $(document).ready(function() {
 		var artist = e.currentTarget.parentElement.parentElement.children,
 				form = $('div#form form#editArtist')[0].children;
 
+debugger;
+
 		form[2].children.id.value = artist[0].innerHTML;
 		form[2].children.fname.value = artist[1].innerHTML;
 		form[2].children.lname.value = artist[2].innerHTML;
 		form[4].children.dob.value = artist[3].attributes.rel.value;
 		form[4].children.email.value = artist[4].innerHTML;
 
+		form[2].children.fname.focus();
 
 		$('div#form form#editArtist input[type="submit"]').on('click', function(e) {
 			e.preventDefault();
@@ -79,6 +84,7 @@ $(document).ready(function() {
 
 	// edit art
 	$('#art .glyphE').on('click', function(e) {
+		e.preventDefault();
 		$('div#form p.success').remove();
 
 		var getEditUrl = e.currentTarget.dataset.getEditUrl;
@@ -97,6 +103,7 @@ $(document).ready(function() {
 		form[4].children.price.value = +tile[5].innerText.substring(1, tile[5].innerHTML.length);
 		form[4].children.desc.innerHTML = tile[4].innerText;
 
+		form[4].children.name.focus();
 
 		$('div#form form#editArt input[type="submit"]').on('click', function(e) {
 			e.preventDefault();
@@ -173,7 +180,6 @@ $(document).ready(function() {
 
 	// dynamic list update
 	function deleteFromArts(e) {
-		debugger;
 		var deleteUrl = e.target.parentElement.dataset.url;
 		$.ajax({
 			method: "DELETE",
@@ -199,6 +205,7 @@ $(document).ready(function() {
 			artists.forEach(function(el, i) {
 				var tile = $('<div>', {'class': 'tile'});
 				var bottom = $('<div>', {'class': 'bottom'});
+				var del = $("<a class='glyphD' data-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-remove fa-2x'></span></a>").on('click', deleteFromArts);
 
 				tile.append("<input type='hidden' value="+ el.art_id +">");
 				tile.append("<input type='hidden' value="+ el.artist_id +">");
@@ -207,9 +214,9 @@ $(document).ready(function() {
 				tile.append("<img src='/i/iris_garden.jpg'>");
 				tile.append("<p class='desc'>"+ el.description +"</p>");
 
-				bottom.append("<a class='glyphE' href='/artists/"+ el.artist_id +"/art?artist_id="+ el.artist_id +"&art_id="+ el.art_id +"&name="+ el.name +"&price="+ el.price +"&desc="+ el.description +"&url=artists/"+ el.artist_id +"/art/"+ el.art_id +"' data-get-edit-url='/artists/" + el.artist_id + "/art/" + el.id + "/edit' data-make-edit-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-edit fa-2x'></span></a>");
+				bottom.append("<a class='glyphE' href='/artists/"+ el.artist_id +"/art?artist_id="+ el.artist_id +"&art_id="+ el.art_id +"&name="+ el.name +"&price="+ el.price +"&desc="+ el.description +"&url=/artists/"+ el.artist_id +"/art/"+ el.art_id +"' data-get-edit-url='/artists/" + el.artist_id + "/art/" + el.id + "/edit' data-make-edit-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-edit fa-2x'></span></a>");
 				bottom.append("<h3 class='price'>" + el.price + "</h3>");
-				bottom.append("<a class='glyphD' data-url='/artists/" + el.artist_id + "/art/" + el.art_id + "'><span class='fa fa-remove fa-2x'></span></a>").on('click', deleteFromArts);
+				bottom.append(del);
 
 				tile.append(bottom);
 
